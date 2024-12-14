@@ -31,4 +31,10 @@ async function getData() {
 流程 :
 https://b.map987.us.kg → pages.dev → 打开html会加载rss链接 https://c.map987.us.kg/https://share.dmhy.org → https://workers.dev/https://share.dmhy.org
 
+问题:
+1. 用js添加到html中太慢， <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script> 这个js文件比较大
+2. 添加类似于tvkingdom , itv6.jp的番组表css样式，或者直接，周几的名，都显示在网页最上面，比较方便看，类似
+
+周一 xxx xxx
+周二 xxx xxx
 
