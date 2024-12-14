@@ -26,3 +26,9 @@ async function getData() {
 
 ```
 修改为自己绑定域名后的workers地址，后跟动漫花园rss链接
+
+## https://b.map987.us.kg/
+流程 :
+https://b.map987.us.kg → pages.dev → 打开html会加载rss链接 https://c.map987.us.kg/https://share.dmhy.org → https://workers.dev/https://share.dmhy.org
+
+
