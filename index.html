@@ -1,14 +1,14 @@
-
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>/</title>
-		<link rel="canonical" href="//"  />
-		<meta charset="utf-8">
-		<meta name="color-scheme" content="light dark">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>		
-<style>
+<head>
+    <title>Video List</title>
+    <link rel="canonical" href="//"  />
+    <meta charset="utf-8">
+    <meta name="color-scheme" content="light dark">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    
+    <style>
 * { padding: 0; margin: 0; box-sizing: border-box; }
 
 body {
@@ -459,7 +459,7 @@ footer {
 	}
 
 	.grid .entry a {
-		background-color: #080b0f;
+		-color: #080b0f;
 	}
 
 	#Wordmark path,
@@ -472,489 +472,311 @@ footer {
 }
 
 </style>
+    <style>
+        /*基础CSS参考上面提供的代码*/
+        /* 新增或修改的CSS */
+        .show-episodes-btn {
+            background-color: #BB2649;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 14px;
+            position: absolute;
+            bottom: 0%;
+            right: 0px;
+            
+            transform: translateY(0%);
+            
+        }
+
+        .show-episodes-btn:hover {
+            background-color: #a02345;
+        }
+
+        .video-title {
+            position: relative;
+            padding: 1em 0;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-height: 80%;
+            overflow-y: auto;
+            border-left: 3px solid #BB2649; /* Left border */
+            border-right: 3px solid #BB2649; /* Right border */
+        }
+
+        .episode-list-title {
+            border-top: 5px solid #BB2649; /* Top border for the title */
+            padding-top: 10px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body onload="initPage()">
-	<header>
-		<div class="wrapper">
-			<div class="breadcrumbs">Folder Path</div>
-				<h1>
-					<a href="">/</a>
-				</h1>
-			</div>
-		</header>
-		<div class="wrapper">
-			<main>
-				<div class="meta">
-					<div id="summary">
-						<span class="meta-item">
-							<b>0</b> directories
-						</span>
-						<span class="meta-item">
-							<b>387</b> files
-						</span>
-						<span class="meta-item">
-							<b>131 GiB</b> total 
-						</span>
-					</div>
-					<a href="javascript:queryParam('layout', '')" id="layout-list" class='layoutcurrent'>
-						<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-layout-list" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-							<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-							<path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"/>
-							<path d="M4 14m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"/>
-						</svg>
-						List
-					</a>
-					<a href="javascript:queryParam('layout', 'grid')" id="layout-grid" class='layout'>
-						<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-layout-grid" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-							<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-							<path d="M4 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"/>
-							<path d="M14 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"/>
-							<path d="M4 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"/>
-							<path d="M14 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"/>
-						</svg>
-						Grid
-					</a>
-				</div>
-				
-				<!-- 列表开始 -->
-				<div class='listing'>								
-				<table aria-describedby="summary">
-					<thead>
-					<tr>
-						<th></th>
-						<th>
-							<a href="?sort=namedirfirst&order=desc" class="icon">
-								<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-caret-up" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-									<path d="M18 14l-6 -6l-6 6h12"/>
-								</svg>
-							</a>
-							<a href="?sort=name&order=asc">
-								Name
-							</a>
-
-							<div class="filter-container">
-								<svg id="search-icon" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-									<path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"/>
-									<path d="M21 21l-6 -6"/>
-								</svg>
-								<input type="search" placeholder="Search" id="filter" onkeyup='filter()'>
-							</div>
-						</th>
-						<th>
-							<a href="?sort=size&order=asc">
-								Size
-							</a>
-						</th>
-						<th class="hideable">
-							<a href="?sort=time&order=asc">
-								Modified
-							</a>
-						</th>
-						<th class="hideable"></th>
-					</tr>
-					</thead>
-					
-					
-					<!---tbody开始，下面主要是每个文件的列表，tbody内包含所有文件列表直到/tbody是结束，tr class是单独每个文件一个--->
-					<tbody>
-					<tr class="file">
-						<td></td>
-
-						<td>
-							<a  <!--   href="">    这里是链接，现在修改为加载中静态文本 -->
-								
-	<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-movie" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-		<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-		<path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"/>
-		<path d="M8 4l0 16"/>
-		<path d="M16 4l0 16"/>
-		<path d="M4 8l4 0"/>
-		<path d="M4 16l4 0"/>
-		<path d="M4 12l16 0"/>
-		<path d="M16 8l4 0"/>
-		<path d="M16 16l4 0"/>
-	</svg>
-								<span class="name">加载中</span>
-							</a>
-						</td>
-						<td class="size" data-size="142641339">
-							<div class="sizebar">
-								<div class="sizebar-bar"></div>
-								<div class="sizebar-text">
-									日期 <!--这里原来是文件大小，现在只需要显示日期，就直接修改为用这里显示日期-->
-								</div>
-							</div>
-						</td>
-						<td class="timestamp hideable">
-							<time datetime="2022-07-06T21:06:16Z">07/06/2022 09:06:16 PM +00:00</time>
-						</td>
-						<td class="hideable"></td>
-					</tr>
-
-
-<!--中间省略一百个文件html-->
-
-<!--中间省略一百个文件html
-					<tr class="file">
-						<td></td>
-						<td>
-							<a href="./">
-								
-	<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-movie" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-		<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-		<path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"/>
-		<path d="M8 4l0 16"/>
-		<path d="M16 4l0 16"/>
-		<path d="M4 8l4 0"/>
-		<path d="M4 16l4 0"/>
-		<path d="M4 12l16 0"/>
-		<path d="M16 8l4 0"/>
-		<path d="M16 16l4 0"/>
-	</svg>
-								<span class="name">SP.2020.06.06.mp4</span>
-							</a>
-						</td>
-						<td class="size" data-size="159782392">
-							<div class="sizebar">
-								<div class="sizebar-bar"></div>
-								<div class="sizebar-text">
-									152 MiB
-								</div>
-							</div>
-						</td>
-						<td class="timestamp hideable">
-							<time datetime="2022-07-06T22:07:41Z">07/06/2022 10:07:41 PM +00:00</time>
-						</td>
-						<td class="hideable"></td>
-					</tr>
--->					
-<!--这个不对不是<div id="show_magnet_list"> -->
-                
-                
-					</tbody> 
-				</table> 	<!--此处tbody和table结束就是文件列表的结束-->
-			</div>
-			</main>
-		</div>
-		
-		
-		
-		<footer>
-			Served with
-
-		</footer>
-
-		<!-- 暂时不需要原来的文件大小排序功能
-		<script>
-			const filterEl = document.getElementById('filter');
-			filterEl?.focus({ preventScroll: true });
-
-			function initPage() {
-				// populate and evaluate filter
-				if (!filterEl?.value) {
-					const filterParam = new URL(window.location.href).searchParams.get('filter');
-					if (filterParam) {
-						filterEl.value = filterParam;
-					}
-				}
-				filter();
-
-				// fill in size bars
-				let largest = 0;
-				document.querySelectorAll('.size').forEach(el => {
-					largest = Math.max(largest, Number(el.dataset.size));
-				});
-				document.querySelectorAll('.size').forEach(el => {
-					const size = Number(el.dataset.size);
-					const sizebar = el.querySelector('.sizebar-bar');
-					if (sizebar) {
-						sizebar.style.width = `${size/largest * 100}%`;
-					}
-				});
-			}
-
-			function filter() {
-				if (!filterEl) return;
-				const q = filterEl.value.trim().toLowerCase();
-				document.querySelectorAll('tr.file').forEach(function(el) {
-					if (!q) {
-						el.style.display = '';
-						return;
-					}
-					const nameEl = el.querySelector('.name');
-					const nameVal = nameEl.textContent.trim().toLowerCase();
-					if (nameVal.indexOf(q) !== -1) {
-						el.style.display = '';
-					} else {
-						el.style.display = 'none';
-					}
-				});
-			}
-
-			function queryParam(k, v) {
-				const qs = new URLSearchParams(window.location.search);
-				if (!v) {
-					qs.delete(k);
-				} else {
-					qs.set(k, v);
-				}
-				const qsStr = qs.toString();
-				if (qsStr) {
-					window.location.search = qsStr;
-				} else {
-					window.location = window.location.pathname;
-				}
-			}
-
-			function localizeDatetime(e, index, ar) {
-				if (e.textContent === undefined) {
-					return;
-				}
-				var d = new Date(e.getAttribute('datetime'));
-				if (isNaN(d)) {
-					d = new Date(e.textContent);
-					if (isNaN(d)) {
-						return;
-					}
-				}
-				e.textContent = d.toLocaleString();
-			}
-			var timeList = Array.prototype.slice.call(document.getElementsByTagName("time"));
-			timeList.forEach(localizeDatetime);
-		</script>
-				!-->
-<!-- Modal for displaying episodes -->
-<div id="episodeModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <div id="episodeList"></div>
-    </div>
-</div>
-
-<script>
-    function showEpisodes(button) {
-        const row = button.closest('tr');
-        const name = row.querySelector('.name').textContent.trim();
-        const episodePattern = name.match(/\[ANi\]\s*(.*?)\s*-\s*\d+/);
-        if (episodePattern) {
-            const seriesName = episodePattern[1].trim();
-            console.log("正则表达式检查点", seriesName)
-            const allRows = document.querySelectorAll('tr.file');
-            const episodeList = [];
-            allRows.forEach((r) => {
-                const episodeName = r.querySelector('.name').textContent.trim();
-                if (episodeName.includes(seriesName)) {
-                    episodeList.push(episodeName);
-                }
-            });
-            displayEpisodes(episodeList);
-        }
-    }
-
-    function displayEpisodes(episodes) {
-        const episodeListDiv = document.getElementById('episodeList');
-        episodeListDiv.innerHTML = '<h3>集数列表</h3><ul>' +
-            episodes.map(e => `<li>${e}</li>`).join('') + '</ul>';
-        document.getElementById('episodeModal').style.display = 'block';
-    }
-
-    function closeModal() {
-        document.getElementById('episodeModal').style.display = 'none';
-    }
-</script>
-
-        <script> 
-        // 假设数据源 
-async function getData() { 
-  const xmlUrl = 'https://c.map987.us.kg/https://share.dmhy.org/topics/rss/team_id/816/rss.xml';  
-  const response = await fetch(xmlUrl); 
-  const xmlText = await response.text();  
-  return xmlText; 
-}
-
-function parseXML(xmlText) { 
-  const parser = new DOMParser(); 
-  const xmlDoc = parser.parseFromString(xmlText,  'text/xml'); 
-  return xmlDoc; 
-} 
-
-function formatTime(timeStr) { 
-    const now = new Date(); 
-    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()); 
-    const date = new Date(timeStr); 
-    date.setHours(date.getHours()); 
-    const targetDate = new Date(date.getFullYear(), date.getMonth(), date.getDate()); 
-    if (targetDate.getTime() === today.getTime()) { 
-        return "今天 " + date.getHours().toString().padStart(2, '0') + ':' + date.getMinutes().toString().padStart(2, '0') + "时"; 
-    } else { 
-        const yesterday = new Date(today.getTime() - 24 * 60 * 60 * 1000); 
-        if (targetDate.getTime() === yesterday.getTime()) { 
-            return "昨天 " + date.getHours().toString().padStart(2, '0') + ':' + date.getMinutes().toString().padStart(2, '0') + "时"; 
-        } else { 
-            const month = date.getMonth() + 1; 
-            const day = date.getDate(); 
-            return month + '-' + day + ' ' + date.getHours().toString().padStart(2, '0') + ':' + date.getMinutes().toString().padStart(2, '0') + "时"; 
-        } 
-    } 
- 
- 
-} 
- 
- 
-
-function buildDataSource(xmlDoc) { 
-  const items = xmlDoc.querySelectorAll('item');  
-  const dataSource = []; 
-  items.forEach((item)  => { 
-    const name = item.querySelector('title').textContent.trim();  
-    const time = item.querySelector('pubDate').textContent.trim();
-    const newTime = formatTime(time);         
-    const magnet = item.querySelector('enclosure').getAttribute('url');  
-    dataSource.push({  name, newTime, magnet }); 
-  }); 
-  return dataSource; 
-} 
-
-
-async function main() { 
-  const xmlText = await getData(); 
-  const xmlDoc = parseXML(xmlText); 
-  const dataSource = buildDataSource(xmlDoc); 
-  const source = ` 
-    <tbody> 
-    {{#each data}} 
-      <tr class="file"> 
-        <td><button onclick="showEpisodes(this)">显示集数</button></td> <!-- Add button here -->
-        <td> 
-          <a href={{magnet}}> 
-            <svg xmlns="http://www.w3.org/2000/svg"  class="icon icon-tabler icon-tabler-movie" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"> 
-              <path stroke="none" d="M0 0h24v24H0z" fill="none"/> 
-              <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"/> 
-              <path d="M8 4l0 16"/> 
-              <path d="M16 4l0 16"/> 
-              <path d="M4 8l4 0"/> 
-              <path d="M4 16l4 0"/> 
-              <path d="M4 12l16 0"/> 
-              <path d="M16 8l4 0"/> 
-              <path d="M16 16l4 0"/> 
-            </svg> 
-            <span class="name">{{name}}</span> 
-          </a> 
-        </td> 
-        <td class="size" data-size="159782392"> 
-          <div class="sizebar"> 
-            <div class="sizebar-bar"></div> 
-            <div class="sizebar-text"> 
-              {{newTime}}
-            </div> 
-          </div> 
-        </td> 
-        <td class="timestamp hideable"> 
-          <time datetime="{{{time}}}">{{{time}}}</time> 
-        </td> 
-        <td class="hideable"></td> 
-      </tr> 
-     {{/each}} 
-    </tbody> 
-  `; 
-  const template = Handlebars.compile(source);  
-  const html = template({ data: dataSource }); 
-  document.getElementsByTagName('tbody')[0].innerHTML  = html; 
-} 
-main();  
-</script>
-
-<!-- Modal for displaying episodes -->
-<div id="episodeModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <div id="episodeList"></div>
-    </div>
-</div>
-
-<script>
-    function showEpisodes(button) {
-        const row = button.closest('tr');
-        const name = row.querySelector('.name').textContent.trim();
-        const episodePattern = name.match(/\[ANi\]\s*(.*?)\s*-\s*\d+/);
-        
-        if (episodePattern) {
-            const seriesName = episodePattern[1].trim();
-            console.log("正则表达式检查点", seriesName);
-
-
+    <header>
+        <div class="wrapper">
+            <div class="breadcrumbs">Folder Path</div>
+            <h1>
+                <a href="">/</a>
+            </h1>
+        </div>
+    </header>
+    <div class="wrapper">
+        <main>
+            <div class="meta">
+                <div id="summary">
+                    <span class="meta-item">
+                        <b>0</b> directories
+                    </span>
+                    <span class="meta-item">
+                        <b>387</b> files
+                    </span>
+                    <span class="meta-item">
+                        <b>131 GiB</b> total 
+                    </span>
+                </div>
+                <a href="javascript:queryParam('layout', '')" id="layout-list" class='layoutcurrent'>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-layout-list" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"/>
+                        <path d="M4 14m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"/>
+                    </svg>
+                    List
+                </a>
+                <a href="javascript:queryParam('layout', 'grid')" id="layout-grid" class='layout'>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-layout-grid" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M4 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"/>
+                        <path d="M14 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"/>
+                        <path d="M4 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"/>
+                        <path d="M14 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"/>
+                    </svg>
+                    Grid
+                </a>
+            </div>
             
-            const allRows = document.querySelectorAll('tr.file');
-            const episodeList = [];
-            allRows.forEach((r) => {
-                const episodeName = r.querySelector('.name').textContent.trim();
-                if (episodeName.includes(seriesName)) {
-                    const magnetLink = r.querySelector('a').getAttribute('href');
-                    episodeList.push({ name: episodeName, magnet: magnetLink });
-                }
-            });
-            displayEpisodes(episodeList);
+            <!-- 列表开始 -->
+            <div class='listing'>                                
+            <table aria-describedby="summary">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>
+                        <a href="?sort=namedirfirst&order=desc" class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-caret-up" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M18 14l-6 -6l-6 6h12"/>
+                            </svg>
+                        </a>
+                        <a href="?sort=name&order=asc">
+                            Name
+                        </a>
+
+                        <div class="filter-container">
+                            <svg id="search-icon" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"/>
+                                <path d="M21 21l-6 -6"/>
+                            </svg>
+                            <input type="search" placeholder="Search" id="filter" onkeyup='filter()'>
+                        </div>
+                    </th>
+                    <th>
+                        <a href="?sort=size&order=asc">
+                            Size
+                        </a>
+                    </th>
+                    <th class="hideable">
+                        <a href="?sort=time&order=asc">
+                            Modified
+                        </a>
+                    </th>
+                    <th class="hideable"></th>
+                </tr>
+                </thead>
+                
+                <!-- Handlebars Template -->
+                <tbody id="video-list"></tbody>
+            </table>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Modal for displaying episodes -->
+    <div id="episodeModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="episodeList"></div>
+        </div>
+    </div>
+
+    <script>
+        async function getData() { 
+            const xmlUrl = 'https://c.map987.us.kg/https://share.dmhy.org/topics/rss/team_id/816/rss.xml';  
+            const response = await fetch(xmlUrl); 
+            const xmlText = await response.text();  
+            return xmlText; 
         }
+
+        function parseXML(xmlText) { 
+            const parser = new DOMParser(); 
+            const xmlDoc = parser.parseFromString(xmlText,  'text/xml'); 
+            return xmlDoc; 
+        } 
+
+        function formatTime(timeStr) { 
+            const now = new Date(); 
+            const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()); 
+            const date = new Date(timeStr); 
+            date.setHours(date.getHours()); 
+            const targetDate = new Date(date.getFullYear(), date.getMonth(), date.getDate()); 
+            if (targetDate.getTime() === today.getTime()) { 
+                return "今天 " + date.getHours().toString().padStart(2, '0') + ':' + date.getMinutes().toString().padStart(2, '0') + "时"; 
+            } else { 
+                const yesterday = new Date(today.getTime() - 24 * 60 * 60 * 1000); 
+                if (targetDate.getTime() === yesterday.getTime()) { 
+                    return "昨天 " + date.getHours().toString().padStart(2, '0') + ':' + date.getMinutes().toString().padStart(2, '0') + "时"; 
+                } else { 
+                    const month = date.getMonth() + 1; 
+                    const day = date.getDate(); 
+                    return month + '-' + day + ' ' + date.getHours().toString().padStart(2, '0') + ':' + date.getMinutes().toString().padStart(2, '0') + "时"; 
+                } 
+            } 
+        } 
+
+        function buildDataSource(xmlDoc) { 
+            const items = xmlDoc.querySelectorAll('item');  
+            const dataSource = []; 
+            items.forEach((item)  => { 
+                const name = item.querySelector('title').textContent.trim();  
+                const time = item.querySelector('pubDate').textContent.trim();
+                const newTime = formatTime(time);         
+                const magnet = item.querySelector('enclosure').getAttribute('url');  
+                dataSource.push({  name, newTime, magnet }); 
+            }); 
+            return dataSource; 
+        } 
+
+        async function main() { 
+            const xmlText = await getData(); 
+            const xmlDoc = parseXML(xmlText); 
+            const dataSource = buildDataSource(xmlDoc); 
+            const source = ` 
+                {{#each data}} 
+                <tr class="file"> 
+                    <td></td> 
+                    <td class="video-title">
+                        <a href={{magnet}}> 
+                            <svg xmlns="http://www.w3.org/2000/svg"  class="icon icon-tabler icon-tabler-movie" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"> 
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/> 
+                                <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"/> 
+                                <path d="M8 4l0 16"/> 
+                                <path d="M16 4l0 16"/> 
+                                <path d="M4 8l4 0"/> 
+                                <path d="M4 16l4 0"/> 
+                                <path d="M4 12l16 0"/> 
+                                <path d="M16 8l4 0"/> 
+                                <path d="M16 16l4 0"/> 
+                            </svg> 
+                            <span class="name">{{name}}</span> 
+                        </a>
+                        <button class="show-episodes-btn" onclick="showEpisodes(this)">显示集数</button>
+                    </td> 
+                    <td class="size" data-size="159782392"> 
+                        <div class="sizebar"> 
+                            <div class="sizebar-bar"></div> 
+                            <div class="sizebar-text"> 
+                                {{newTime}}
+                            </div> 
+                        </div> 
+                    </td> 
+                    <td class="timestamp hideable"> 
+                        <time datetime="{{{time}}}">{{{time}}}</time> 
+                    </td> 
+                    <td class="hideable"></td> 
+                </tr> 
+                {{/each}} 
+            `; 
+            const template = Handlebars.compile(source);  
+            const html = template({ data: dataSource }); 
+            document.getElementById('video-list').innerHTML = html; 
+        } 
+        main();  
+function showEpisodes(button) {
+    const row = button.closest('tr');
+    const name = row.querySelector('.name').textContent.trim();
+    const episodePattern = name.match(/\[ANi\]\s*(.*?)\s*-\s*\d+/);
+    if (episodePattern) {
+        const seriesName = episodePattern[1].trim();
+        const allRows = document.querySelectorAll('tr.file');
+        const episodeList = [];
+        allRows.forEach((r) => {
+            const episodeName = r.querySelector('.name').textContent.trim();
+            if (episodeName.includes(seriesName)) {
+                const magnetLink = r.querySelector('a').getAttribute('href');
+                const episodeNumber = episodeName.match(/-\s*(\d+)/)[1]; // 提取集数
+                episodeList.push({ episodeNumber: episodeNumber, magnet: magnetLink });
+            }
+        });
+        displayEpisodes(seriesName, episodeList);
     }
+}
 
-    function displayEpisodes(episodes) {
-        const episodeListDiv = document.getElementById('episodeList');
-        episodeListDiv.innerHTML = '<h3>集数列表，点击或长按都可复制，是超链接</h3><ul>' +
-            episodes.map(e => `<li><a href="${e.magnet}">${e.name}</a></li>`).join('') + '</ul>';
-        document.getElementById('episodeModal').style.display = 'block';
+function displayEpisodes(seriesName, episodes) {
+    const episodeListDiv = document.getElementById('episodeList');
+    episodeListDiv.innerHTML = `<h3 class="episode-list-title">${seriesName}</h3><ul>` +
+        episodes.map(e => `<li><a href="${e.magnet}">Episode ${e.episodeNumber}</a></li>`).join('') + '</ul>';
+    document.getElementById('episodeModal').style.display = 'block';
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+}
+
+function closeModal() {
+    document.getElementById('episodeModal').style.display = 'none';
+    document.body.style.overflow = ''; // Restore background scrolling
+}
+
+// Close modal when clicking outside
+window.onclick = function(event) {
+    const modal = document.getElementById('episodeModal');
+    if (event.target === modal) {
+        closeModal();
     }
-
-    function closeModal() {
-        document.getElementById('episodeModal').style.display = 'none';
-    }
-</script>
-
-<style>
-/* Modal styles */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 999;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
-    padding-top: 60px;
 }
-
-.modal-content {
-    background-color: #fefefe;
-    margin: 5% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-height: 80%;
-    overflow-y: auto;
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-</style>
-    
-    
-	</body>
+    </script>
+</body>
 </html>
-
-
 
