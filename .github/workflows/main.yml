@@ -1,0 +1,32 @@
+name: 部署 cloudflare Pages 个人网页
+on:
+push:
+    branches:
+    - main
+
+jobs:
+    publish:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            deployments: write
+        name: Publish to Cloudflare Pages
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+
+                # Run a build step here if your project requires
+            - name: Install requirements
+              run: |
+                mkdir cloudflare
+                cp index.html cloudflare/
+          
+
+            - name: Publish to Cloudflare Pages
+              uses: cloudflare/pages-action@v1
+              with:
+                apiToken: ${{ secrets.CF_TOKEN }}
+                accountId: ${{ secrets.CF_ID }}
+                projectName: ${{ secrets.CF_NAME }}
+                directory: cloudflare
+                wranglerVersion: '3'
