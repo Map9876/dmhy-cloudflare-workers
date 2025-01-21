@@ -1,6 +1,6 @@
 name: 部署 cloudflare Pages 个人网页
 on:
-push:
+  push:
     branches:
     - main
 
