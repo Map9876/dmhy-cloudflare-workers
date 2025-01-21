@@ -2082,4 +2082,50 @@ transform: translateY(-50%);show-episodes-btnepisodeList<script>
             [ANi] 金肉人 完美超人始祖篇 Season 2 - 13 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]
             ↑name输入
             ↓seriesName匹配，打印出：
-            正则表达式检查点 金肉人 完美超人始祖篇 Season 2        
+            正则表达式检查点 金肉人 完美超人始祖篇 Season 2
+
+
+
+
+
+github中
+/.github/workflow/run.yml放置下面这个
+
+```
+name: 部署 cloudflare Pages 个人网页
+on:
+push:
+    branches:
+    - main
+
+jobs:
+    publish:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            deployments: write
+        name: Publish to Cloudflare Pages
+        steps:
+            - name: Checkout
+            uses: actions/checkout@v3
+
+                # Run a build step here if your project requires
+
+            - name: Publish to Cloudflare Pages
+            uses: cloudflare/pages-action@v1
+            with:
+                apiToken: ${{ secrets.CF_TOKEN }}
+                accountId: ${{ secrets.CF_ID }}
+                projectName: ${{ secrets.CF_NAME }}
+                directory: ./
+                wranglerVersion: '3'
+
+
+```
+注意projectName是dmhyorg.pages.dev中的dmhyorg，
+
+api是cloudflare申请的api ，accountId就是cloudflare控制台主页，链接后面始终跟着，每个用户唯一
+
+https://dash.cloudflare.com/xxxxxx/
+
+在github项目设置中设置，填写好serect分别为 CF_TOKEN ，CF_ID，CF_NAME，然后填写对应的值，这样之后每次github更新，会通过api链接推送到pages。
