@@ -2,6 +2,30 @@
 使用cloudflare workers直连动漫花园 dmhy
 # https://dmhyorg.pages.dev/
 20250122
+
+https://github.com/copilot/c/9953f2c2-bd80-4d40-baa0-2ef28bfd5c8f 
+<script src="./dist/index.js" type="module">
+    import { tify } from './dist/index.js'
+    </script>
+
+    <script>
+   
+    const title = '简体字标题';
+    name = tify(title);  // 使用转换后的标题
+        async function getData() { 
+            const xmlUrl = 'https://c.map987.us.kg/https://share.dmhy.org/topics/rss/team_id/816/rss.xm  是这样用吗问题是Uncaught ReferenceError: tify is not defined
+    at （索引
+
+直接使用这个库的dist/index.js文件
+import { tify } from 'chinese-conv/dist';
+
+export function convertTitle(title) {
+    // 将简体字转换为繁体字
+    return tify(title);
+}
+
+202501221454
+
 ## cloudflare workers直连部分 :
 1. 使用 :
 
