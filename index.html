@@ -643,8 +643,17 @@ footer {
             <div id="episodeList"></div>
         </div>
     </div>
+    <script src="./index.js" type="module">
+    import { tify } from './dist/index.js'
+    
+    </script>
 
-    <script>
+    <script type="module">
+   import { sify } from './index.js'
+   
+    const title = '简体字标题';
+    
+    console.log(name)
         async function getData() { 
             const xmlUrl = 'https://c.map987.us.kg/https://share.dmhy.org/topics/rss/team_id/816/rss.xml';  
             const response = await fetch(xmlUrl); 
@@ -682,7 +691,9 @@ footer {
             const items = xmlDoc.querySelectorAll('item');  
             const dataSource = []; 
             items.forEach((item)  => { 
-                const name = item.querySelector('title').textContent.trim();  
+                let name = item.querySelector('title').textContent.trim(); 
+                console.log(name) 
+                 name = sify(name);
                 const time = item.querySelector('pubDate').textContent.trim();
                 const newTime = formatTime(time);         
                 const magnet = item.querySelector('enclosure').getAttribute('url');  
@@ -736,6 +747,9 @@ footer {
             document.getElementById('video-list').innerHTML = html; 
         } 
         main();  
+        </script>
+        <script>
+        //多分一个标签，要不然type module时候没法找到showEpisodes
 function showEpisodes(button) {
     const row = button.closest('tr');
     const name = row.querySelector('.name').textContent.trim();
