@@ -20,7 +20,7 @@ jobs:
               run: |
                 mkdir cloudflare
                 cp index.html cloudflare/
-                cp index.js cloud flare/
+                cp index.js cloudflare/
           
 
             - name: Publish to Cloudflare Pages
